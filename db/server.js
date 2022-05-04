@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const db = require('./index');
-
 const {connection} = require('./index');
 const { start } = require('repl');
 //require("console.table");
@@ -8,9 +7,7 @@ const { start } = require('repl');
 db.connect(async function(){
     start();
 })
-
-
-    {
+{
     inquirer
     .prompt([
         {
@@ -25,17 +22,17 @@ db.connect(async function(){
             case "View All Employees":
                 return viewEmployees();
             case    "View All Roles":
-                return viewRoles();
+               return viewRoles();
             case "View All Departments":
                 return viewDepartments();
             case "Add New Employee":
-                return newEmployee;     
+              return newEmployee;     
             case "Add Role":
                 return addRole();
             case "Add Department":
                 return addDepartment();
             case "Update":
-                return Update();
+              return Update();
             case "Quit":
                 return Quit();                   
         }
@@ -46,51 +43,51 @@ db.connect(async function(){
 function viewEmployees() {
     const request = "SELECT * FROM employee";
     db.query(request, function(err, res){
-        if(err) throw err;
+       if(err) throw err;
         console.log("Viewing all Employees");
         console.table(res);
         inquirer.prompt([
-            {
-                type:'list',
-                name:'choice',
+           {
+            type:'list',
+              name:'choice',
                 message: 'select an option',
                 choices: ['Main menu, Quit'],
 
         }
     ])
     .then((answer) => {
-        switch (answer.choice) {
-            case 'Main Menu':
-                start();
+       switch (answer.choice) {
+          case 'Main Menu':
+              start();
                 break;
                 case'Quit':
                 Quit();
-        }
+       }
     })
-    })
+   })
 };
 function viewRoles() {
     let request = "SElECT * FROM ROLE   ";
     db.query(request, function(err, res){
-        if(err)throw err;
+      if(err)throw err;
         console.log("Viewing all Roles");
         console.table(res);
         inquirer.prompt([
             {
-                type:'list',
+               type:'list',
                 name:'choice',
-                message:'select an option',
+               message:'select an option',
                 choices: ['Main menu, Quit']
                 
         }
     ])
     .then((answer) => {
-        switch (answer.choice) {
+       switch (answer.choice) {
             case 'Main menu':
                 start();
-                break;
+               break;
             case 'Quit':
-            Quit();
+           Quit();
         }
     })
     })
@@ -98,12 +95,12 @@ function viewRoles() {
 function viewDepartments() {
     const request = "SELECT * FROM department";
     db.query(request, function(err, res){
-        if(err)throw err;
+       if(err)throw err;
         console.log("Viewing all Departments");
-        console.table(res);
-        inquirer.prompt([
-            {
-                type:'list',
+       console.table(res);
+       inquirer.prompt([
+           {
+               type:'list',
                 name:'choice',
                 message:'select an option',
                 choices: ['Main menu, Quit']
@@ -111,34 +108,34 @@ function viewDepartments() {
         }
     ])
     .then((answer) => {
-        switch(answer.choice){
-            case 'Main menu':
-                start();
+       switch(answer.choice){
+          case 'Main menu':
+               start();
                 break;
             case 'Quit':
                 Quit();    
         }
-    })
+})
     })
 }
 function newEmployee() {
     console.log('oy')
     inquirer.prompt ([
-        { 
-            type:'input',
+       { 
+           type:'input',
             message:'Enter employee first name',
             name:' firstName'
 
     },
     {
-        type:'input',
+       type:'input',
         message:'enter employess last name',
         name:'lastName'
     },
     {
         type:'input',
         message:'enter employee ID number',
-        name:'employeeID'
+    name:'employeeID'
     },
     {
         type:'input',
@@ -158,7 +155,7 @@ function newEmployee() {
                 message:'select an option',
                 choices:['Main menu', 'Quit']
 
-        }
+       }
     ]).then((answer) => {
         switch(answer.choice) {
             case 'Main menu':
