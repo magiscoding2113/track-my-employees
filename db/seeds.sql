@@ -4,7 +4,7 @@ VALUES ("Engineering"),
        ("Human Resources"),
        ("Marketing");
 
-INSERT INTO employeeRole (title, salary, department_id)
+INSERT role (title, salary, department_id)
 VALUES ("Lead Engineer", 200000, 2),
        ("Junior Engineer", 90000, 2),
        ("Finance Manager", 150000, 1),

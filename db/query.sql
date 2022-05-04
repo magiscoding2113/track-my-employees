@@ -1,14 +1,26 @@
 source schema.sql
 source seeds.sql
 
+SELECT
+e.id AS ID,
+e.first_name AS First,
+e.last_name AS last,
+e.role_id AS Role,
+r.salary AS salary,
+m.last_name AS Manager,
+d.department_name AS department
 
-SELECT role_id.id, title.title, department.name as department
-FROM title
-JOIN department
-ON title.department_id = department.id;
 
-SELECT employee.id, employee.first_name, employee.last_name, employee.title_id as employee
-FROM employee
-JOIN title ON title_id = title.id
-JOIN department ON department_id = department.id;
+FROM employee e 
+LEFT JOIN employee m
+ON e.manager_id = m.id
+
+LEFT JOIN role r 
+ON e.role_id = r.title
+
+LEFT JOIN department d 
+ON r.department_id = d.id
+
+
+
 
