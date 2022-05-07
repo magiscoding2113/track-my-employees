@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
-const db = require('./index');
-const {connection} = require('./index');
+const db = require('./db/index');
 const { start } = require('repl');
 //require("console.table");
+
 
 db.connect(async function(){
     start();
@@ -18,23 +18,31 @@ db.connect(async function(){
 
     }
     ]).then((answer) => {
-        switch(answer.choice) {
+        console.log(answer);
+        switch(answer.start){
             case "View All Employees":
-                return viewEmployees();
+                viewEmployees();
+                break;
             case    "View All Roles":
-               return viewRoles();
+                  viewRoles();
+                  break;
             case "View All Departments":
-                return viewDepartments();
+                 viewDepartments();
+                 break;
             case "Add New Employee":
-              return newEmployee;     
+                 newEmployee();
+                 break;     
             case "Add Role":
-                return addRole();
+                addRole();
+                break;
             case "Add Department":
-                return addDepartment();
+                addDepartment();
+                break;
             case "Update":
-              return Update();
+               Update();
+               break;
             case "Quit":
-                return Quit();                   
+              Quit();                   
         }
 
 })
@@ -43,29 +51,34 @@ db.connect(async function(){
 function viewEmployees() {
     const request = "SELECT * FROM employee";
     db.query(request, function(err, res){
-       if(err) throw err;
+       //if(err) throw err;
         console.log("Viewing all Employees");
         console.table(res);
-        inquirer.prompt([
+         inquirer.prompt([
            {
             type:'list',
-              name:'choice',
-                message: 'select an option',
+              name:'start',
+              message: 'select an option',
                 choices: ['Main menu, Quit'],
 
-        }
+         }
+    
+
     ])
     .then((answer) => {
-       switch (answer.choice) {
+       switch (answer.start) {
           case 'Main Menu':
-              start();
+               start();
                 break;
                 case'Quit':
                 Quit();
        }
+     })
     })
-   })
-};
+}
+        
+    
+
 function viewRoles() {
     let request = "SElECT * FROM ROLE   ";
     db.query(request, function(err, res){
@@ -75,14 +88,14 @@ function viewRoles() {
         inquirer.prompt([
             {
                type:'list',
-                name:'choice',
+                name:'start',
                message:'select an option',
                 choices: ['Main menu, Quit']
                 
         }
     ])
     .then((answer) => {
-       switch (answer.choice) {
+       switch (answer.start) {
             case 'Main menu':
                 start();
                break;
@@ -101,14 +114,14 @@ function viewDepartments() {
        inquirer.prompt([
            {
                type:'list',
-                name:'choice',
+                name:'start',
                 message:'select an option',
                 choices: ['Main menu, Quit']
 
         }
     ])
     .then((answer) => {
-       switch(answer.choice){
+       switch(answer.start){
           case 'Main menu':
                start();
                 break;
@@ -151,13 +164,13 @@ function newEmployee() {
         inquirer.prompt([
             {
                 type:'list',
-                name:'choice',
+                name:'start',
                 message:'select an option',
                 choices:['Main menu', 'Quit']
 
        }
     ]).then((answer) => {
-        switch(answer.choice) {
+        switch(answer.start) {
             case 'Main menu':
                 start();
                 break;
